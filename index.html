@@ -29,9 +29,9 @@
 	<script>
 		function onoffclick(e) {
 			var v = 0;
-			if (e.target.innerText == "on") {
+			if (e.innerText == "on") {
 				v = 1;
-			} else if  (e.target.innerText == "on") {
+			} else if  (e.innerText == "on") {
 				v = 0;
 			}
 			localStorage.setItem("autoRedirect", v);
