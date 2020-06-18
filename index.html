@@ -6,6 +6,9 @@
 		span {
 			font-size: 24px;
 		}
+		.red {
+			font-color: red;
+		}
 	</style>
 	<script>
 		var argString = window.location.href.replace(window.location.origin + window.location.pathname + "?", "");
@@ -33,6 +36,7 @@
 				}
 				if (!args[1].startsWith("/")) url += "/";
 				url += cleanLink;
+				url = decodeURIComponent(url);
 				
 				//window.location.replace(url);
 				document.querySelector("#manual-link").href = url;
@@ -51,7 +55,7 @@
 		<span>請在網址輸入正確的格式，如：</span>
 		<br>
 		<span>https://hechtea.github.io/AutoRedirect/</span>
-		<span style="color:red;">?</span>
+		<span class="red">?</span>
 		<span>site=[支援的網站]</span>
 		<span style="color:red;">&url=</span>
 		<span>你想要去的網址，去掉他的域名</span>
@@ -60,6 +64,14 @@
 		<br>
 		<span>esix	->  e621.net</span><br>
 		<span>fa	->  furaffinity.net</span><br>
-		<span>其他有想到再說<span>
+		<span>其他有想到再說</span>
+		<br><br>
+		<span>範例：</span>
+		<br>
+		<span>我想去 https://www.furaffinity.net/view/29162306/ </span><br>
+		<span>那麼就打</span>
+		<a href="https://hechtea.github.io/AutoRedirect/?site=fa&url=/view/29162306/">
+			https://hechtea.github.io/AutoRedirect/?site=fa&url=/view/29162306/
+		</a>
 	</div>
 </body>
