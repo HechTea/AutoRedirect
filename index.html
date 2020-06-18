@@ -10,13 +10,18 @@
 	<script>
 		var argString = window.location.href.replace(window.location.origin + window.location.pathname + "?", "");
 		var args = argString.split("&url=");
+		var siteOption = args[0];
+		var rawLink = args[1] || "";
+		var noFBJunkLink = rawLink.split("&fbclid=")[0];
+		// perhaps some other stuff.  we'll see.
+		var cleanLink = noFBJunkLink;
 		
 		window.addEventListener('load', function () {
 			if ( window.location.href.startsWith(window.location.origin + window.location.pathname + "?") 
 			     && (args[1] || "").length > 0 ) 
 			{
 				var url = "";
-				switch(args[0]) {
+				switch(siteOption) {
 					case "site=esix":
 						url = "https://e621.net";
 						break;
@@ -27,7 +32,7 @@
 						url = "https://www.google.com/search?"
 				}
 				if (!args[1].startsWith("/")) url += "/";
-				url += args[1]
+				url += cleanLink;
 				
 				//window.location.replace(url);
 				document.querySelector("#manual-link").href = url;
