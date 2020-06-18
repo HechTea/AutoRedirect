@@ -9,7 +9,43 @@
 		.red {
 			color: red;
 		}
+		.OnButt {
+			height: 50px;
+			width: 70px;
+			font-size: 24px;
+		}
+		.OffButt {
+			height: 50px;
+			width: 70px;
+			font-size: 24px;
+		}
+		.OnButt.ActiveButt {
+			background-color: #84ff6e;
+		}
+		.OffButt.ActiveButt {
+			background-color: #ff6e6e;
+		}
 	</style>
+	<script>
+		function onoffclick(e) {
+			var v = 0;
+			if (e.target.innerText == "on") {
+				v = 1;
+			} else if  (e.target.innerText == "on") {
+				v = 0;
+			}
+			localStorage.setItem("autoRedirect", v);
+			_updateButt(v);
+		}
+		function _updateButt(v) {
+			document.querySelector(".ActiveButt").classList.remove("ActiveButt");
+			if (v == 1) {
+				document.querySelector(".OnButt").classList.add("ActiveButt");
+			} else if (v == 0) {
+				document.querySelector(".OffButt").classList.add("ActiveButt");
+			}
+		}
+	</script>
 	<script>
 		var argString = window.location.href.replace(window.location.origin + window.location.pathname + "?", "");
 		var args = argString.split("&url=");
@@ -18,6 +54,14 @@
 		var noFBJunkLink = rawLink.split("&fbclid=")[0];
 		// perhaps some other stuff.  we'll see.
 		var cleanLink = noFBJunkLink;
+		
+		var autoRedirect = false;
+		var savedRedirectValue = localStorage.getItem("autoRedirect");
+		if (savedRedirectValue == null) {
+			localStorage.setItem("autoRedirect", "0");
+		} else if (savedRedirectValue == "1") {
+			autoRedirect = true;
+		}
 		
 		window.addEventListener('load', function () {
 			if ( window.location.href.startsWith(window.location.origin + window.location.pathname + "?") 
@@ -38,7 +82,8 @@
 				url += cleanLink;
 				url = decodeURIComponent(url);
 				
-				//window.location.replace(url);
+				if (autoRedirect)
+					window.location.replace(url);
 				document.querySelector("#manual-link").href = url;
 				document.querySelector("#manual-link").innerText = url;
 			} else {
@@ -73,5 +118,11 @@
 		<a href="https://hechtea.github.io/AutoRedirect/?site=fa&url=/view/29162306/">
 			https://hechtea.github.io/AutoRedirect/?site=fa&url=/view/29162306/
 		</a>
+		<br><br>
+	</div>
+	<div>
+		<span>開啟自動轉跳？</span>
+		<button class="OnButt" onclick="onoffclick(this)">On</button>
+		<button class="OffButt" onclick="onoffclick(this)">Off</button>
 	</div>
 </body>
