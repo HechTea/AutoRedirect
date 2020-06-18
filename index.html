@@ -1,4 +1,12 @@
 <head>
+	<style>
+		body {
+			font-family: Verdana,sans-serif;
+		}
+		span {
+			font-size: 24px;
+		}
+	</style>
 	<script>
 		var url = window.location.href.replace(window.location.origin + window.location.pathname + "?", "");
 		if ( window.location.href.startsWith(window.location.origin + window.location.pathname + "?") 
@@ -6,11 +14,20 @@
 		{
 			window.location.replace(url);
 		} else {
-			document.querySelector("#text").innerText = "請在網址輸入正確的格式\nex.  'https://hechtea.github.io/AutoRedirect/' + '?' + '想去的網址'";
+			setTimeout(()=>{document.querySelector("#text").innerText = "\nex.  '' + '?' + '想去的網址'";},
+				   1000);
 		}
 		
 	</script>
 </head>
 <body>
 	<p id="text">Redirecting...</p>
+	<div id="instructionText">
+		<span>請在網址輸入正確的格式，如：</span>
+		<br>
+		<span>https://hechtea.github.io/AutoRedirect/</span>
+		<span style="color:red;">?</span>
+		<span>你想要去的網址</span>
+		<br>
+	</div>
 </body>
