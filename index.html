@@ -8,11 +8,27 @@
 		}
 	</style>
 	<script>
-		var url = window.location.href.replace(window.location.origin + window.location.pathname + "?", "");
+		var argString = window.location.href.replace(window.location.origin + window.location.pathname + "?", "");
+		var args = argString.split("&url=");
+		
 		window.addEventListener('load', function () {
 			if ( window.location.href.startsWith(window.location.origin + window.location.pathname + "?") 
-			     && url.length > 3 ) 
+			     && (args[1] || "").length > 0 ) 
 			{
+				var url = "";
+				switch(args[0]) {
+					case "site=esix":
+						url = "https://e621.net";
+						break;
+					case "site=fa":
+						url = "https://furaffinity.net";
+						break;
+					default:
+						url = "https://www.google.com/search?"
+				}
+				if (!args[1].startsWith("/")) url += "/";
+				url += args[1]
+				
 				//window.location.replace(url);
 				document.querySelector("#manual-link").href = url;
 				document.querySelector("#manual-link").innerText = url;
@@ -32,9 +48,9 @@
 		<span>https://hechtea.github.io/AutoRedirect/</span>
 		<span style="color:red;">?</span>
 		<span>site=[支援的網站]</span>
-		<span style="color:red;">&</span>
+		<span style="color:red;">&url=</span>
 		<span>你想要去的網址，去掉他的域名</span>
-		<br>
+		<br><br>
 		<span>[支援的網站] 包含：</span>
 		<br>
 		<span>esix	->  e621.net</span><br>
