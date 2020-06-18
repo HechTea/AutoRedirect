@@ -9,29 +9,36 @@
 	</style>
 	<script>
 		var url = window.location.href.replace(window.location.origin + window.location.pathname + "?", "");
-		if ( window.location.href.startsWith(window.location.origin + window.location.pathname + "?") 
-		     && url.length > 3 ) 
-		{
-			window.location.replace(url);
-		} else {
-			setTimeout(
-				()=>{
-					document.querySelector("#text").style.display = "none";
-					document.querySelector("#instruction-div").style.display = "";
-				},
-				   1000);
-		}
-		
+		window.addEventListener('load', function () {
+			if ( window.location.href.startsWith(window.location.origin + window.location.pathname + "?") 
+			     && url.length > 3 ) 
+			{
+				//window.location.replace(url);
+				document.querySelector("#manual-link").href = url;
+				document.querySelector("#manual-link").innerText = url;
+			} else {
+				document.querySelector("#text").style.display = "none";
+				document.querySelector("#instruction-div").style.display = "";
+			}
+		})
 	</script>
 </head>
 <body>
+	<a id="manual-link" href=""></a>
 	<p id="text">Redirecting...</p>
 	<div id="instruction-div" style="display:none;">
 		<span>請在網址輸入正確的格式，如：</span>
 		<br>
 		<span>https://hechtea.github.io/AutoRedirect/</span>
 		<span style="color:red;">?</span>
-		<span>你想要去的網址</span>
+		<span>site=[支援的網站]</span>
+		<span style="color:red;">&</span>
+		<span>你想要去的網址，去掉他的域名</span>
 		<br>
+		<span>[支援的網站] 包含：</span>
+		<br>
+		<span>esix	->  e621.net</span><br>
+		<span>fa	->  furaffinity.net</span><br>
+		<span>其他有想到再說<span>
 	</div>
 </body>
