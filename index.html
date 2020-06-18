@@ -64,6 +64,8 @@
 		}
 		
 		window.addEventListener('load', function () {
+			// redirect part
+			/////////////////
 			if ( window.location.href.startsWith(window.location.origin + window.location.pathname + "?") 
 			     && (args[1] || "").length > 0 ) 
 			{
@@ -89,6 +91,14 @@
 			} else {
 				document.querySelector("#text").style.display = "none";
 				document.querySelector("#instruction-div").style.display = "";
+			}
+			
+			// button setting part
+			///////////////////////
+			if (autoRedirect) {
+				document.querySelector(".OnButt").classList.add("ActiveButt");
+			} else {
+				document.querySelector(".OffButt").classList.add("ActiveButt");
 			}
 		})
 	</script>
