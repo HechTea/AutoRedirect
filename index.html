@@ -14,7 +14,11 @@
 		{
 			window.location.replace(url);
 		} else {
-			setTimeout(()=>{document.querySelector("#text").innerText = "\nex.  '' + '?' + '想去的網址'";},
+			setTimeout(
+				()=>{
+					document.querySelector("#text").style.display = "none";
+					document.querySelector("#instruction-div").style.display = "";
+				},
 				   1000);
 		}
 		
@@ -22,7 +26,7 @@
 </head>
 <body>
 	<p id="text">Redirecting...</p>
-	<div id="instructionText">
+	<div id="instruction-div" style="display:none;">
 		<span>請在網址輸入正確的格式，如：</span>
 		<br>
 		<span>https://hechtea.github.io/AutoRedirect/</span>
