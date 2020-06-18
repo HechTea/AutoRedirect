@@ -1,7 +1,15 @@
 <head>
 	<script>
+		if ( window.location.href.startsWith(window.location.origin + window.location.pathname + "?") ) {
+			var url = window.location.href.replace(window.location.origin + window.location.pathname + "?", "");
+			if (url.length > 3) 
+				window.location.replace(url);
+			else {
+				document.querySelector("#text").innerText = "請在網址輸入正確的格式\nex.  'https://hechtea.github.io/AutoRedirect/' + '?' + '想去的網址'";
+			}
+		}
 	</script>
 </head>
 <body>
-	<p>Redirecting...</p>
+	<p id="text">Redirecting...</p>
 </body>
