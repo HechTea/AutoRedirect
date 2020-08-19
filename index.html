@@ -126,6 +126,7 @@
 			// if it's main page
 				document.querySelector("#text").style.display = "none";
 				document.querySelector("#instruction-div").style.display = "";
+				document.querySelector("#url-tf-div").style.display = "";
 			}
 			
 			// button setting part
@@ -170,7 +171,7 @@
 		<button class="OnButt" onclick="onoffclick(this)">On</button>
 		<button class="OffButt" onclick="onoffclick(this)">Off</button>
 	</div>
-	<div style="display:none;" class="block">
+	<div id="url-tf-div" style="display:none;" class="block">
 		<input type="text" id="url-input" class="url-textbox" placeholder="在此輸入要縮短的網址">
 		<button id="url-tf" style="font-size: large;margin-top: 10px;" onclick="urlTfButt_Action()">V 產生網址 V</button>
 		<input type="text" id="url-output" class="url-textbox" placeholder="轉跳網址" style="margin-top: 10px;">
