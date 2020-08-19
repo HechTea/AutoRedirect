@@ -25,6 +25,12 @@
 		.OffButt.ActiveButt {
 			background-color: #ff6e6e;
 		}
+		
+		.block {
+			margin: 10px;
+			border: 3px #e621 solid;
+			padding: 10px;
+		}
 	</style>
 	<script>
 		function onoffclick(e) {
@@ -44,6 +50,26 @@
 			} else if (v == 0) {
 				document.querySelector(".OffButt").classList.add("ActiveButt");
 			}
+		}
+		
+		function urlTfButt_Action() {
+			var url_input = document.querySelector('#url-input');
+			var url_output = document.querySelector('#url-output');
+			var rawUrl = url_input.value;
+			var strippedHttps = rawUrl.replace(/https*:\/\//, "");
+			var siteToDiscern = strippedHttps.split('/', 1);
+			var urlPath = strippedHttps.replace(siteToDiscern, "");
+
+			var siteParam, urlPathParam = urlPath, finalUrl;
+
+			if (siteToDiscern == "www.furaffinity.net" || siteToDiscern == "sfw.furaffinity.net") {
+				siteParam = "fa";
+			} else if (siteToDiscern == "e621.net") {
+				siteParam = "esix";
+			}
+
+			finalUrl = `https://hechtea.github.io/AutoRedirect/?site=${siteParam}&url=${urlPathParam}`;
+			url_output.value = finalUrl;
 		}
 	</script>
 	<script>
@@ -106,7 +132,7 @@
 <body>
 	<a id="manual-link" href=""></a>
 	<p id="text">Redirecting...</p>
-	<div id="instruction-div" style="display:none;">
+	<div id="instruction-div" class="block" style="display:none;">
 		<span>請在網址輸入正確的格式，如：</span>
 		<br>
 		<span>https://hechtea.github.io/AutoRedirect/</span>
@@ -130,9 +156,13 @@
 		</a>
 		<br><br>
 	</div>
-	<div>
+	<div class="block">
 		<span>開啟自動轉跳？</span>
 		<button class="OnButt" onclick="onoffclick(this)">On</button>
 		<button class="OffButt" onclick="onoffclick(this)">Off</button>
 	</div>
+	<div style="" class="block">
+        <input type="text" id="url-input" class="url-textbox" placeholder="在此輸入要縮短的網址">
+        <button id="url-tf" style="font-size: large;margin-top: 10px;" onclick="urlTfButt_Action()">V 產生網址 V</button>
+	<input type="text" id="url-output" class="url-textbox" placeholder="轉跳網址" style="margin-top: 10px;"></div>
 </body>
