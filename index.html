@@ -61,7 +61,7 @@
 		function urlTfButt_Action() {
 			var url_input = document.querySelector('#url-input');
 			var url_output = document.querySelector('#url-output');
-			var rawUrl = url_input.value;
+			var rawUrl = url_input.value.trim();
 			var strippedHttps = rawUrl.replace(/https*:\/\//, "");
 			var siteToDiscern = strippedHttps.split('/', 1);
 			var urlPath = strippedHttps.replace(siteToDiscern, "");
@@ -87,7 +87,7 @@
 		// perhaps some other stuff.  we'll see.
 		var cleanLink = noFBJunkLink;
 		
-		var autoRedirect = false;
+		var autoRedirect = false, valid_url = true;
 		var savedRedirectValue = localStorage.getItem("autoRedirect");
 		if (savedRedirectValue == null) {
 			localStorage.setItem("autoRedirect", "0");
@@ -101,6 +101,7 @@
 			if ( window.location.href.startsWith(window.location.origin + window.location.pathname + "?") 
 			     && (args[1] || "").length > 0 ) 
 			{
+			// if url has params, perform redirect logic
 				var url = "";
 				switch(siteOption) {
 					case "site=esix":
@@ -110,17 +111,19 @@
 						url = "https://furaffinity.net";
 						break;
 					default:
-						url = "https://www.google.com/search?"
+						alert("Site parameter not recognized.");
+						valid_url = false
 				}
 				if (!args[1].startsWith("/")) url += "/";
 				url += cleanLink;
 				url = decodeURIComponent(url);
 				
-				if (autoRedirect)
+				if (valid_url && autoRedirect)
 					window.location.replace(url);
 				document.querySelector("#manual-link").href = url;
 				document.querySelector("#manual-link").innerText = url;
 			} else {
+			// if it's main page
 				document.querySelector("#text").style.display = "none";
 				document.querySelector("#instruction-div").style.display = "";
 			}
@@ -167,8 +170,9 @@
 		<button class="OnButt" onclick="onoffclick(this)">On</button>
 		<button class="OffButt" onclick="onoffclick(this)">Off</button>
 	</div>
-	<div style="" class="block">
-        <input type="text" id="url-input" class="url-textbox" placeholder="在此輸入要縮短的網址">
-        <button id="url-tf" style="font-size: large;margin-top: 10px;" onclick="urlTfButt_Action()">V 產生網址 V</button>
-	<input type="text" id="url-output" class="url-textbox" placeholder="轉跳網址" style="margin-top: 10px;"></div>
+	<div style="display:none;" class="block">
+		<input type="text" id="url-input" class="url-textbox" placeholder="在此輸入要縮短的網址">
+		<button id="url-tf" style="font-size: large;margin-top: 10px;" onclick="urlTfButt_Action()">V 產生網址 V</button>
+		<input type="text" id="url-output" class="url-textbox" placeholder="轉跳網址" style="margin-top: 10px;">
+	</div>
 </body>
